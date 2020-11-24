@@ -62,7 +62,7 @@ app.get('/categories',function(req,res){
     })
 });
 
-//get Category by id
+
 app.get('/categories/:id',function(req,res){  
     var query = "select * from category where id = " + req.params.id; 
     connection.query(query,function(error,results){
@@ -71,6 +71,19 @@ app.get('/categories/:id',function(req,res){
     })
 });
 
+
+
+app.post('/categories',function(req,res){  
+    var query = "INSERT INTO category (name, image) VALUES ( '" +  req.body.name + "', '" + req.body.image + "')";
+    connection.query(query,function(error,results){
+        if (error) throw error;
+        res.send(results);
+    })
+});
+
+
+
+//Draft - authentication
 app.post('/auth',function(req,res){  
     var query = "select * from user where username = '" + req.body.username + "' AND password = '" + req.body.password + "'"; 
     connection.query(query,function(error,results){
