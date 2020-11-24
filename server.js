@@ -1,5 +1,6 @@
 var express = require("express");
 var mysql = require("mysql");
+var cors = require("cors");
 // var jwt = require("jwt");
 
 
@@ -7,6 +8,7 @@ var app = express();
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
+app.use(cors({ origin: 'http://localhost:4200' , credentials :  true}));
 
 
 //database connection
@@ -45,7 +47,7 @@ app.use(express.static('public'));
 //====================================
 
 app.get('/spots',function(req,res) {  
-    var query = "select * from spots join image"; 
+    var query = "select * from spots as s inner join image as i on s.id = i.id_spot"; 
     connection.query(query,function(error,results){
         if (error) throw error;
         res.send(JSON.stringify(results));
