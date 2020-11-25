@@ -84,6 +84,22 @@ app.post('/categories',function(req,res){
 });
 
 
+app.put('/category/:id',function(req,res){  
+    var query = "update category set name='"+req.body.name+"', image='"+req.body.image+"' where id = "+req.params.id;
+    connection.query(query,function(error,results){
+        if (error) throw error;
+        res.send(results);
+    })
+});
+
+app.delete('/category/:id',function(req,res){  
+    var query = "delete from category where id = "+req.params.id;
+    connection.query(query,function(error,results){
+        if (error) throw error;
+        res.send(results);
+    })
+});
+
 
 //Draft - authentication
 app.post('/auth',function(req,res){  
